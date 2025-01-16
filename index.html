@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagina de Inicio de Sesion</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -102,15 +103,15 @@
             
                     // Crear el contenido del archivo
                     const contenido = `Usuario: ${username}\nContraseña: ${password}`;
-                    // Contraseña para el cifrado (puedes definir la tuya aquí)
-                    const claveCifrado = "gda_IT";
+                    
+                    const claveCifrado = "gda-it";
 
                     // Cifrar el contenido con AES
                     const contenidoCifrado = CryptoJS.AES.encrypt(contenido, claveCifrado).toString();
 
                     // Crear un archivo blob
-                    const blob = new Blob([contenido], { type: "text/plain" });
-            
+                    const blob = new Blob([contenidoCifrado], { type: "text/plain" });
+                                
                     // Crear un enlace de descarga
                     const enlace = document.createElement("a");
                     enlace.href = URL.createObjectURL(blob);
