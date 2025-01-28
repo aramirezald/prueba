@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desencriptar Texto</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <h1>Desencriptar Texto Encriptado</h1>
+    <textarea id="encryptedText" placeholder="Pega aquí el texto cifrado" rows="4" cols="50"></textarea>
+    <br>
+    <input type="password" id="password" placeholder="Contraseña">
+    <br><br>
+    <button onclick="desencriptar()">Desencriptar</button>
+    <h3>Texto Original:</h3>
+    <pre id="resultado"></pre>
+
+    <script>
+        function desencriptar() {
+            const encryptedText = document.getElementById("encryptedText").value;
+            const password = document.getElementById("password").value;
+
+            if (!encryptedText || !password) {
+                alert("Por favor, ingresa el texto cifrado y la contraseña.");
+                return;
+            }
+
+            try {
+                // Desencriptar el texto
+                const bytes = CryptoJS.AES.decrypt(encryptedText, password);
+                const originalText = bytes.toString(CryptoJS.enc.Utf8);
+
+                if (!originalText) {
+                    throw new Error("Contraseña incorrecta o texto inválido.");
+                }
+
+                document.getElementById("resultado").textContent = originalText;
+            } catch (error) {
+                alert("Error al desencriptar: " + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
